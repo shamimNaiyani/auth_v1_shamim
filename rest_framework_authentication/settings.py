@@ -24,7 +24,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*', 'http://localhost:8000']
+ALLOWED_HOSTS = ['*', 'http://localhost:8000', 'https://auth-v1-shamim.onrender.com']
 
 
 # Application definition
