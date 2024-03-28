@@ -122,8 +122,8 @@ SIMPLE_JWT = {
 DOMAIN='localhost:3000'
 SITE_NAME = 'naiyani.com'
 
-GOOGLE_CLIENT_ID=env("GOOGLE_CLIENT_ID")
-GOOGLE_CLIENT_SECRET=env("GOOGLE_CLIENT_SECRET")
+# GOOGLE_CLIENT_ID=env("GOOGLE_CLIENT_ID")
+# GOOGLE_CLIENT_SECRET=env("GOOGLE_CLIENT_SECRET")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
