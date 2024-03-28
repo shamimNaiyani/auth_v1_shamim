@@ -136,6 +136,7 @@ class SetNewPasswordApiView(GenericAPIView):
     
 
 class UserProfile(GenericAPIView):
+    '''from rest_framework.permissions import IsAuthenticated'''
     permission_classes = [IsAuthenticated]
     
     def get(self, request):

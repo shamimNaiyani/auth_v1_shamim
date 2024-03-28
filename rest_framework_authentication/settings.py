@@ -24,7 +24,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*', 'http://localhost:8000', 'https://auth-v1-shamim.onrender.com']
+ALLOWED_HOSTS = ['*', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
 
 
 # Application definition
@@ -55,9 +55,13 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS=True
-# CORS_ALLOW_CREDENTIALS=True
+CORS_ALLOW_CREDENTIALS=True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://naiyani-admin.netlify.app", 
+    "https://naiyani-app.netlify.app"
 ]
 
 ROOT_URLCONF = 'rest_framework_authentication.urls'
@@ -112,6 +116,14 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+
+# Social media authentication 
+DOMAIN='localhost:3000'
+SITE_NAME = 'naiyani.com'
+
+GOOGLE_CLIENT_ID=env("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET=env("GOOGLE_CLIENT_SECRET")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
