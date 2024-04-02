@@ -57,13 +57,13 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS=True
 CORS_ALLOW_CREDENTIALS=True
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
-    "http://localhost:3000",
-    "http://localhost:5173",
-    "https://naiyani-admin.netlify.app", 
-    "https://naiyani-app.netlify.app"
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:8000",
+#     "http://localhost:3000",
+#     "http://localhost:5173",
+#     "https://naiyani-admin.netlify.app", 
+#     "https://naiyani-app.netlify.app"
+# ]
 
 ROOT_URLCONF = 'rest_framework_authentication.urls'
 
