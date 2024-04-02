@@ -1,6 +1,7 @@
 import environ
 from datetime import timedelta
 from pathlib import Path
+import dj_database_url
 
 
 env = environ.Env(
@@ -94,6 +95,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# configure remote postgresql databases deployed on render 
+DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a.singapore-postgres.render.com/naiyani_app_v1_db")
 
 
 # custom auth user model 
