@@ -25,7 +25,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
+ALLOWED_HOSTS = ['*', 'naiyani_app_v1_db_user', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
 
 
 # Application definition
@@ -97,7 +97,7 @@ DATABASES = {
 }
 
 # configure remote postgresql databases deployed on render 
-DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a.singapore-postgres.render.com/naiyani_app_v1_db")
+DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a/naiyani_app_v1_db")
 
 
 # custom auth user model 
