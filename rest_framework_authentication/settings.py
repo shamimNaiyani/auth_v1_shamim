@@ -25,7 +25,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*','localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
+ALLOWED_HOSTS = ['*', 'localhost', 'localhost:5432', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
 
 
 # Application definition
