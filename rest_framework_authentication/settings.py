@@ -57,13 +57,13 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS=True
 CORS_ALLOW_CREDENTIALS=True
-# CSRF_TRUSTED_ORIGINS = [
-#     "http://localhost:8000",
-#     "http://localhost:3000",
-#     "http://localhost:5173",
-#     "https://naiyani-admin.netlify.app", 
-#     "https://naiyani-app.netlify.app"
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://naiyani-admin.netlify.app", 
+    "https://naiyani-app.netlify.app"
+]
 
 ROOT_URLCONF = 'rest_framework_authentication.urls'
 
@@ -97,7 +97,7 @@ DATABASES = {
 }
 
 # configure remote postgresql databases deployed on render 
-DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a/naiyani_app_v1_db")
+# DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a/naiyani_app_v1_db")
 
 
 # custom auth user model 
