@@ -4,6 +4,7 @@ from django.utils.encoding import force_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response 
+from helper.utils.commonApiResponse import CommonApiResponse
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .serializers import (
@@ -37,12 +38,13 @@ class UserRegisterView(GenericAPIView):
             # thread.start()
 
             
-            return Response({
-                "data": user,
-                "message": f"Hi {user.get('first_name')}! Thanks for signing up! We send OTP. Plese check your email for varification!"
-            }, status=status.HTTP_201_CREATED)
+            return CommonApiResponse(
+                data = user,
+                message = f"Hi {user.get('first_name')}! Thanks for signing up! We send OTP. Plese check your email for varification!", 
+                status_code=status.HTTP_201_CREATED
+                )
         
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return CommonApiResponse(errors=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
     
 
 class VerifyUserEmailView(GenericAPIView):
@@ -55,18 +57,21 @@ class VerifyUserEmailView(GenericAPIView):
             if not user.is_verified:
                 user.is_verified = True 
                 user.save() 
-                return Response({
-                    "message": "Email verification done successfully!"
-                }, status=status.HTTP_200_OK)
+                return CommonApiResponse(
+                    message="Email verification done successfully!",
+                    status_code=status.HTTP_200_OK
+                )
             
-            return Response({
-                "message": "User already verified!"
-            }, status=status.HTTP_204_NO_CONTENT)
+            return CommonApiResponse(
+                message="User already verified!", 
+                status_code=status.HTTP_204_NO_CONTENT
+            )
                 
         except OTP.DoesNotExist:
-            return Response({
-                'message': 'Invalid OTP'
-            }, status=status.HTTP_404_NOT_FOUND)
+            return CommonApiResponse(
+                message='Invalid OTP', 
+                status_code=status.HTTP_404_NOT_FOUND
+            )
 
 
 class UserLoginView(GenericAPIView):
@@ -77,7 +82,7 @@ class UserLoginView(GenericAPIView):
         serializer = self.serializer_class(data=user_data, context={"request": request})
         
         serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return CommonApiResponse(data=serializer.data, status_code=status.HTTP_200_OK)
     
     
 class UserLogoutApiView(GenericAPIView):
@@ -90,7 +95,7 @@ class UserLogoutApiView(GenericAPIView):
         serializer = self.serializer_class(data=user_data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"message": "Logout successfully!"}, status=status.HTTP_204_NO_CONTENT)
+        return CommonApiResponse(message="Logout successfully!", status_code=status.HTTP_204_NO_CONTENT)
 
 
 class PasswordResetRequestApiView(GenericAPIView):
@@ -100,9 +105,10 @@ class PasswordResetRequestApiView(GenericAPIView):
         user_data = request.data 
         serializer = self.serializer_class(data=user_data, context={'request': request})
         serializer.is_valid(raise_exception=True)
-        return Response({
-                "message": "Please check your email for password reset link!"
-            }, status=status.HTTP_205_RESET_CONTENT)
+        return CommonApiResponse(
+                message="Please check your email for password reset link!",
+                status_code=status.HTTP_205_RESET_CONTENT
+            )
 
 
 class PasswordResetConfirmApiView(GenericAPIView):
@@ -114,14 +120,16 @@ class PasswordResetConfirmApiView(GenericAPIView):
             user = User.objects.get(id=user_id)
             if not PasswordResetTokenGenerator().check_token(user=user, token=token):
                 return Response({"message": "Invalid link or used!"}, status=status.HTTP_401_UNAUTHORIZED)
-            return Response({
-                    "success": True, 
-                    "message": "Credentials is valid!",
-                    "uidb64": uidb64,
-                    "token": token
-                }, status=status.HTTP_205_RESET_CONTENT)
+            return Response(
+                    message="Credentials is valid!",
+                    data={
+                        "uidb64": uidb64,
+                        "token": token 
+                    }, 
+                    status_code=status.HTTP_205_RESET_CONTENT
+                )
         except DjangoUnicodeDecodeError:
-            return Response({"message": "Unauthorized attempt!"}, status=status.HTTP_401_UNAUTHORIZED) 
+            return CommonApiResponse(message="Unauthorized attempt!", status_code=status.HTTP_401_UNAUTHORIZED) 
 
 
 class SetNewPasswordApiView(GenericAPIView):
@@ -130,9 +138,10 @@ class SetNewPasswordApiView(GenericAPIView):
     def patch(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({
-                "message": "Password reset successful! Please check your email!"
-            }, status=status.HTTP_200_OK)
+        return CommonApiResponse(
+                message="Password reset successful! Please check your email!",
+                status=status.HTTP_200_OK
+            )
     
 
 class UserProfile(GenericAPIView):
@@ -146,4 +155,4 @@ class UserProfile(GenericAPIView):
             "msg": "The authentication system is working perfectly!" 
         }
         
-        return Response(data, status=status.HTTP_200_OK)
+        return CommonApiResponse(data=data, status_code=status.HTTP_200_OK)

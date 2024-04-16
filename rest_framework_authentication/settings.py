@@ -97,7 +97,7 @@ DATABASES = {
 }
 
 # configure remote postgresql databases deployed on render 
-# DATABASES['default'] = dj_database_url.parse("postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a/naiyani_app_v1_db")
+DATABASES['default'] = dj_database_url.parse(url="postgres://naiyani_app_v1_db_user:TuvXmnO5C0l9wyh6rcamY2xwOdqY6q9N@dpg-co5s2bev3ddc7395ofl0-a.singapore-postgres.render.com/naiyani_app_v1_db")
 
 
 # custom auth user model 
