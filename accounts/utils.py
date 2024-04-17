@@ -15,7 +15,7 @@ def send_otp_to_new_registered_user(request, email):
     user = User.objects.get(email=email)
     # find the requested site domain using get_current_site method 
     current_site = get_current_site(request=request).domain
-    email_body = f"Hi {user.first_name}! Thanks for signing up on {current_site}. Please verify your email with the \n one time pass code.\nYour OTP is {otp}"
+    email_body = f"<h1>Hi {user.first_name}!</h1>\n Thanks for signing up on {current_site}. Please verify your email with the \n one time pass code.\nYour OTP is {otp}"
     from_email = settings.DEFAULT_FROM_EMAIL
     send_email = EmailMessage(
         subject=subject, 
