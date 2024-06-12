@@ -42,7 +42,7 @@ class UserManager(BaseUserManager):
         if not extra_fields.get("is_superuser"):
             raise ValueError(_("is superuser must be true for admin user"))
         
-        if not extra_fields.get("is_varified"):
+        if not extra_fields.get("is_verified"):
             raise ValueError(_("if verified must be true for admin user"))
         
         superuser = self.create_user(email, password, first_name, last_name, **extra_fields)

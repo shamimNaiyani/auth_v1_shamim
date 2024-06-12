@@ -42,7 +42,7 @@ class UserRegisterView(GenericAPIView):
                 data = user,
                 message = f"Hi {user.get('first_name')}! Thanks for signing up! We send OTP. Plese check your email for varification!", 
                 status_code=status.HTTP_201_CREATED
-                )
+            )
         
         return CommonApiResponse(errors=serializer.errors, status_code=status.HTTP_400_BAD_REQUEST)
     
@@ -81,8 +81,11 @@ class UserLoginView(GenericAPIView):
         user_data = request.data 
         serializer = self.serializer_class(data=user_data, context={"request": request})
         
-        serializer.is_valid(raise_exception=True)
-        return CommonApiResponse(data=serializer.data, status_code=status.HTTP_200_OK)
+        try:
+            serializer.is_valid(raise_exception=True)
+            return CommonApiResponse(message='login successfully!', data=serializer.data, status_code=status.HTTP_200_OK)
+        except:
+            return CommonApiResponse(message="wrong email or password!", status_code=status.HTTP_404_NOT_FOUND)
     
     
 class UserLogoutApiView(GenericAPIView):
@@ -114,7 +117,7 @@ class PasswordResetRequestApiView(GenericAPIView):
 class PasswordResetConfirmApiView(GenericAPIView):
     # http://localhost:8000/api/v1/auth/password-reset-confirm/OQ/c2tfcv-6f15041026a97ab1c12f6e647bc844d6/
     def get(self, request, uidb64, token):
-        # In this url uidb64 = OQ and token = c2tfcv-6f15041026a97ab1c12f6e647bc844d6
+        # In this above url uidb64 = OQ and token = c2tfcv-6f15041026a97ab1c12f6e647bc844d6
         try:
             user_id = force_str(urlsafe_base64_decode(uidb64)) 
             user = User.objects.get(id=user_id)

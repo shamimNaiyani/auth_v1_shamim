@@ -25,7 +25,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ['*', 'localhost', 'localhost:5432', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
+ALLOWED_HOSTS = ['*', 'localhost', 'localhost:3000', 'localhost:5432', 'localhost:8000', 'auth-v1-shamim.onrender.com', "localhost:3000", "localhost:5173", "naiyani-admin.netlify.app", "naiyani-app.netlify.app"]
 
 
 # Application definition
@@ -41,7 +41,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'payment',
     'corsheaders',
+    # 'scheduler',
+    'caching',
+    'user_contact_message',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +62,7 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS=True
 CORS_ALLOW_CREDENTIALS=True
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
     "http://localhost:8000",
     "http://localhost:3000",
     "http://localhost:5173",
@@ -70,7 +75,7 @@ ROOT_URLCONF = 'rest_framework_authentication.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -164,6 +169,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'product'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -178,3 +185,24 @@ EMAIL_HOST_PASSWORD=env("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL=env("DEFAULT_FROM_EMAIL")
 EMAIL_PORT=env("EMAIL_PORT")
 EMAIL_USE_TLS=True
+
+# STRIPE payment infos 
+STRIPE_PUBLIC_KEY = "pk_test_51PBbUeHDBXAJ2VqXb6b4w8B55CkxPzGPwEie5eXcaFHC2M8t7TNiLK3NpuNqyw2ZoCkzaMx70kucCuDKlQk0jtDm00TtEGsvrx"
+STRIPE_SECRET_KEY = "sk_test_51PBbUeHDBXAJ2VqXIMZKqwQjq9ugSa3rY9PW451xyByUghLUxEnTf4v7uNYn0IvNsxzqkTnBDw3VENfg9TqIrKkQ00csLT8K7P"
+API_ID = "price_1PBsHOHDBXAJ2VqXQJujADUW"
+SITE_URL="http://localhost:8000" 
+
+# Redis cach settings 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient" 
+        },
+        "KEY_PREFIX": ""
+    }
+}
+
+# Cache time to live is 15 minutes.
+CACHE_TTL = 60 * 15
